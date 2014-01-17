@@ -27,7 +27,7 @@ import gnupg
 
 def putIntoPrimarySelection(s):
     """ Uses xsel to put a string into the primary selection. """
-    os.system('echo "' + s + '" | xsel -i')
+    os.system('echo -n "' + s + '" | xsel -i')
 
 
 
@@ -40,7 +40,7 @@ def decryptFile(filename, passphrase):
         df = gpg.decrypt_file(ef, passphrase=passphrase)
         ef.close
     except:
-        return (False, "File Error")
+        return (False, "File Error!")
     finally:
        ef.close()
 
@@ -48,7 +48,7 @@ def decryptFile(filename, passphrase):
         s = df.data.decode("utf-8")
         return (True, s)
     else:
-        return (False, "Encryption Error")
+        return (False, "Encryption Error!")
 
 
 
@@ -140,10 +140,12 @@ def main():
     if len(results) > 1:
         passw = resultMenu(results)
     elif len(results) == 1:
-        print("Selecting password for: " + results[0][0])
+        info = results[0][0]
+        if info != "":
+            print("Selecting password for: " + results[0][0])
         passw = results[0][1]
     else:
-        print("Nothing found")
+        print("Nothing found.")
         exit(1)
 
     putIntoPrimarySelection(passw)
