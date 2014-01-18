@@ -22,11 +22,14 @@
 import os
 import sys
 import getpass
+import re
 import gnupg
 
 
 def putIntoPrimarySelection(s):
     """ Uses xsel to put a string into the primary selection. """
+    # escaping
+    s = re.escape(s) 
     os.system('echo -n "' + s + '" | xsel -i')
 
 
