@@ -141,7 +141,7 @@ def main():
         passw = resultMenu(results)
     elif len(results) == 1:
         info = results[0][0]
-        if info != "":
+        if info not in ["", " "]:
             print("Selecting password for: " + results[0][0])
         passw = results[0][1]
     else:
